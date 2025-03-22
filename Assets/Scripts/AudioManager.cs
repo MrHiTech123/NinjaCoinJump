@@ -26,7 +26,7 @@ public class AudioManager : MonoBehaviour
 	}
 	
 	public static void PlayAudio(string audioName) {
-		INSTANCE.PlayAudioNonStatic(audioName);
+		// INSTANCE.PlayAudioNonStatic(audioName);
 	}
 	
 	private void PlayAudioNonStatic(string audioName) {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -24,6 +25,8 @@ public class Player : MonoBehaviour
 	
 	private float speed = 3f;
 	private float jumpHeight = 10f;
+	
+	private float horizontalMove;
 	private bool isGrounded = true;
 	
 	void Jump() {
@@ -35,10 +38,31 @@ public class Player : MonoBehaviour
 		AudioManager.PlayAudio("jump");
 	}
 	
+	void Animate() {
+		
+		if (!isGrounded) {
+			playerAnimator.Play("jump");
+		}
+		else if (horizontalMove <= -0.1f || horizontalMove >= 0.1f) {
+			playerAnimator.Play("running");
+		}
+		else {
+			playerAnimator.Play("idle");
+		}
+		
+		if (horizontalMove < 0) {
+			GetComponent<SpriteRenderer>().flipX = true;
+		}
+		
+		if (horizontalMove > 0) {
+			GetComponent<SpriteRenderer>().flipX = false;
+		}
+	}
+	
     // Update is called once per frame
     void Update()
     {
-		float horizontalMove = 0;
+		horizontalMove = 0;
         if (Input.GetKey(KeyCode.LeftArrow)) {
 			body.velocity = new Vector2(-speed, body.velocity.y);
 			horizontalMove = -0.1f;
@@ -52,21 +76,11 @@ public class Player : MonoBehaviour
 		}
 		
 		
-		playerAnimator.SetFloat("HorizontalMove", horizontalMove);
-		playerAnimator.SetBool("Jump", !isGrounded);
-		
-		if (horizontalMove < 0) {
-			GetComponent<SpriteRenderer>().flipX = true;
-		}
-		
-		if (horizontalMove > 0) {
-			GetComponent<SpriteRenderer>().flipX = false;
-		}
-		
-		Debug.Log(playerAnimator.GetFloat("HorizontalMove"));
 		if (Input.GetKey(KeyCode.Space)) {
 			Jump();
 		}
+		
+		Animate();
     }
 
 	void OnCollisionEnter2D(Collision2D collision)
