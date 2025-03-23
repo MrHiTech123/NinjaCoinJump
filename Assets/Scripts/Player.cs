@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
 	
 	[SerializeField] private GameObject coinProjectile;
 	private Animator playerAnimator;
-	private BoxCollider2D collider;
+	private BoxCollider2D boxCollider;
 	
 	private LinkedList<GameObject> thrownCoins = new LinkedList<GameObject>();
 	private LinkedListNode<GameObject> currentThrownCoin;
@@ -25,8 +25,7 @@ public class Player : MonoBehaviour
 	{
 		GameManager.coinText = scoreboard;
 		playerAnimator = GetComponent<Animator>();
-		collider = GetComponent<BoxCollider2D>();
-		
+		boxCollider = GetComponent<BoxCollider2D>();
 		// TODO: Move to LevelManager
 		Application.targetFrameRate = Consts.frameRate;
 	}
@@ -37,9 +36,7 @@ public class Player : MonoBehaviour
 	
 	private float maxSpeed = 10f;
 	private float acceleration = 0.2f;
-	private float jumpHeight = 4f;
-	private float throwPower = 2f;
-	
+	private float jumpHeight = 4f;	
 	private float horizontalMove;
 	
 	private bool isGrounded = true;
@@ -62,23 +59,13 @@ public class Player : MonoBehaviour
 		float sinAngle = mousePosRelativeToPlayer.y / mousePosRelativeToPlayer.magnitude;
 		float cosAngle = mousePosRelativeToPlayer.x / mousePosRelativeToPlayer.magnitude;
 		
-		float tHorizontal = collider.size.x / (2 * cosAngle);
-		float tVertical = collider.size.y / (2 * sinAngle);
+		float tHorizontal = boxCollider.size.x / (2 * cosAngle);
+		float tVertical = boxCollider.size.y / (2 * sinAngle);
 		float t = Mathf.Min(Mathf.Abs(tHorizontal), Mathf.Abs(tVertical));
 		
-		float xSign = 1;
-		float ySign = 1;
-		
-		if (mousePosRelativeToPlayer.x < 0) {
-			xSign = -1;
-		}
-		if (mousePosRelativeToPlayer.y < 0) {
-			ySign = -1;
-		}
-		
 		Vector2 placedPosRelativeToPlayer = new Vector2(
-			t * cosAngle * xSign,
-			t * sinAngle * ySign
+			t * cosAngle,
+			t * sinAngle
 		);
 		
 		Vector2 pos = new Vector2(placedPosRelativeToPlayer.x + transform.position.x, placedPosRelativeToPlayer.y + transform.position.y);
