@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Schema;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class Player : MonoBehaviour
 	
 	[SerializeField] private GameObject coinProjectile;
 	private Animator playerAnimator;
+	private BoxCollider2D collider;
 	
 	private LinkedList<GameObject> thrownCoins = new LinkedList<GameObject>();
 	private LinkedListNode<GameObject> currentThrownCoin;
@@ -23,7 +25,7 @@ public class Player : MonoBehaviour
 	{
 		GameManager.coinText = scoreboard;
 		playerAnimator = GetComponent<Animator>();
-		
+		collider = GetComponent<BoxCollider2D>();
 		
 		// TODO: Move to LevelManager
 		Application.targetFrameRate = Consts.frameRate;
@@ -55,18 +57,45 @@ public class Player : MonoBehaviour
 	private Vector3 PositionOfThrownCoin() {
 		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		
-		return new Vector3(
-			Mathf.Clamp(mousePos.x, transform.position.x - (GetComponent<BoxCollider2D>().size.x / 2), transform.position.x + (GetComponent<BoxCollider2D>().size.x / 2)),
-			Mathf.Clamp(mousePos.y, transform.position.y - (GetComponent<BoxCollider2D>().size.y / 2), transform.position.y + (GetComponent<BoxCollider2D>().size.y / 2)),
-			transform.position.z
+		Vector2 mousePosRelativeToPlayer = new Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y);
+		
+		float sinAngle = mousePosRelativeToPlayer.y / mousePosRelativeToPlayer.magnitude;
+		float cosAngle = mousePosRelativeToPlayer.x / mousePosRelativeToPlayer.magnitude;
+		
+		float tHorizontal = collider.size.x / (2 * cosAngle);
+		float tVertical = collider.size.y / (2 * sinAngle);
+		float t = Mathf.Min(Mathf.Abs(tHorizontal), Mathf.Abs(tVertical));
+		
+		float xSign = 1;
+		float ySign = 1;
+		
+		if (mousePosRelativeToPlayer.x < 0) {
+			xSign = -1;
+		}
+		if (mousePosRelativeToPlayer.y < 0) {
+			ySign = -1;
+		}
+		
+		Vector2 placedPosRelativeToPlayer = new Vector2(
+			t * cosAngle * xSign,
+			t * sinAngle * ySign
 		);
+		
+		Vector2 pos = new Vector2(placedPosRelativeToPlayer.x + transform.position.x, placedPosRelativeToPlayer.y + transform.position.y);
+		
+		return new Vector3(pos.x, pos.y, 0);
 		
 	}
 	
 	
 	private Vector2 VelocityOfThrownCoin() {
 		Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		return (body.velocity) + (new Vector2(mousePos.x - body.position.x, mousePos.y - body.position.y).normalized * throwPower);
+		Vector2 coinPos = currentThrownCoin.Value.transform.position;
+		Vector2 throwVel = new Vector2(mousePos.x - coinPos.x, mousePos.y - coinPos.y).normalized * 0;
+		Debug.Log(body.velocity);
+		Debug.Log(throwVel);
+		Debug.Log(body.velocity + throwVel);
+		return body.velocity + throwVel;
 	}
 	
 	void ThrowCoin() {
