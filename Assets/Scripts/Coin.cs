@@ -33,8 +33,9 @@ public class Coin : MonoBehaviour
 	}
 	
 	private float MissedYMovement() {
-		return prevVel.y + prevPos.y - (transform.position.y / Consts.frameRate);
+		return (prevVel.y / Consts.frameRate) + prevPos.y - transform.position.y;
 	}
+	
 	private void PosPredictedCorrectly() {
 		movementMissedAmount = new Vector3(MissedXMovement(), MissedYMovement(), 0);
 	}

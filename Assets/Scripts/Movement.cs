@@ -3,7 +3,7 @@ using UnityEngine;
 
 class Movement {
 	
-	private const float pushingPower = 1000f;
+	private const float pushingPower = 2000f;
 	public static void MoveAwayFrom(Rigidbody2D mover, Rigidbody2D from, float force) {
 		Debug.Log("Force: " + force);
 		mover.AddForce((mover.position - from.position).normalized * force);

@@ -33,7 +33,8 @@ public class Player : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
     }
 	
-	private float speed = 10f;
+	private float maxSpeed = 10f;
+	private float acceleration = 0.2f;
 	private float jumpHeight = 4f;
 	private float throwPower = 2f;
 	
@@ -65,7 +66,7 @@ public class Player : MonoBehaviour
 	
 	private Vector2 VelocityOfThrownCoin() {
 		Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		return (body.velocity) + (new Vector2(mousePos.x, mousePos.y).normalized * throwPower);
+		return (body.velocity) + (new Vector2(mousePos.x - body.position.x, mousePos.y - body.position.y).normalized * throwPower);
 	}
 	
 	void ThrowCoin() {
@@ -81,24 +82,21 @@ public class Player : MonoBehaviour
 			return;
 		}
 		Movement.BothMaybeMoveAwayDistScaled(this.gameObject, currentThrownCoin.Value);
-		
-		Coin coin = currentThrownCoin.Value.GetComponent<Coin>();
-		
-		
-		body.velocity = new Vector2(
-			body.velocity.x + (coin.movementMissedAmount.x * (coin.GetComponent<Rigidbody2D>().mass / GetComponent<Rigidbody2D>().mass)),
-			body.velocity.y + (coin.movementMissedAmount.y * (coin.GetComponent<Rigidbody2D>().mass / GetComponent<Rigidbody2D>().mass))
-		);
-		
-		
+	}
+	
+	void GetData() {
+		horizontalMove = body.velocity.x;
+	}
+	void SetData() {
+		body.velocity = new Vector2(horizontalMove, body.velocity.y);
 	}
 	
 	void Move() {
 		if (Input.GetKey(KeyCode.LeftArrow) && isGrounded) {
-			horizontalMove = -speed;
+			horizontalMove = Mathf.Clamp(horizontalMove - acceleration, -maxSpeed, 0);
 		}
 		else if (Input.GetKey(KeyCode.RightArrow) && isGrounded) {
-			horizontalMove = speed;
+			horizontalMove = Mathf.Clamp(horizontalMove + acceleration, 0, maxSpeed);
 		}
 		else if (isGrounded) {
 			horizontalMove = 0;
@@ -117,25 +115,23 @@ public class Player : MonoBehaviour
 		}
 		
 	}
-	void Animate() {
-		
-		horizontalMove = GetComponent<Rigidbody2D>().velocity.x;
-		
+	void Animate() {		
 		if (!isGrounded) {
 			playerAnimator.Play("jump");
 		}
-		else if (horizontalMove <= -speed || horizontalMove >= speed) {
+		else if (horizontalMove <= -acceleration || horizontalMove >= acceleration) {
+			Debug.Log(horizontalMove + "<-hmove acc->" + acceleration);
 			playerAnimator.Play("running");
 		}
 		else {
 			playerAnimator.Play("idle");
 		}
 		
-		if (horizontalMove < 0) {
+		if (horizontalMove < -acceleration) {
 			GetComponent<SpriteRenderer>().flipX = true;
 		}
 		
-		if (horizontalMove > 0) {
+		if (horizontalMove > acceleration) {
 			GetComponent<SpriteRenderer>().flipX = false;
 		}
 	}
@@ -143,8 +139,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		GetData();
         Move();
 		Animate();
+		SetData();
     }
 
 	void OnCollisionEnter2D(Collision2D collision)
