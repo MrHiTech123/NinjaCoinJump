@@ -219,7 +219,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 305110481}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 7835b4c91f6c9614b95098fe2c3438ff, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -267,7 +267,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 50
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -295,6 +295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreboard: {fileID: 0}
+  coinProjectile: {fileID: 1378284902054068917, guid: eaf5e2af27a5e2f40864e11285d889c3, type: 3}
 --- !u!95 &305110487
 Animator:
   serializedVersion: 5
