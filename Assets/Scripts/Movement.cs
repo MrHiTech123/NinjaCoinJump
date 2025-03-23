@@ -10,12 +10,8 @@ class Movement {
 	}
 	
 	public static void BothMaybeMoveAway(Rigidbody2D mover, Rigidbody2D from, float force) {
-		if (mover.mass >= from.mass) {
-			MoveAwayFrom(mover, from, force);
-		}
-		else if (mover.mass <= from.mass) {
-			MoveAwayFrom(from, mover, force);
-		}
+		MoveAwayFrom(mover, from, force);
+		MoveAwayFrom(from, mover, force);
 		
 	}
 	public static void BothMoveAway(Rigidbody2D mover, Rigidbody2D from, float force) {
