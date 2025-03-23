@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 305110484}
   - component: {fileID: 305110486}
   - component: {fileID: 305110487}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -626,7 +626,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 825306314}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 7835b4c91f6c9614b95098fe2c3438ff, type: 2}
+  m_Material: {fileID: 6200000, guid: 76543d95ec186ca4fbe9791292e5fdae, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
