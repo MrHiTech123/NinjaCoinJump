@@ -5,6 +5,7 @@ using System.Xml.Schema;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
@@ -52,6 +53,9 @@ public class Player : MonoBehaviour
 	
 	
 	private Vector3 PositionOfThrownCoin() {
+		// Algorithm adapted from the one in the top answer found here
+		// https://stackoverflow.com/questions/3180000/calculate-a-vector-from-a-point-in-a-rectangle-to-edge-based-on-angle
+		// I didn't read any of the other answers, and the algorithm definitely took up residence in my head
 		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		
 		Vector2 mousePosRelativeToPlayer = new Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y);
@@ -76,21 +80,18 @@ public class Player : MonoBehaviour
 	
 	
 	private Vector2 VelocityOfThrownCoin() {
-		Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		Vector2 coinPos = currentThrownCoin.Value.transform.position;
-		Vector2 throwVel = new Vector2(mousePos.x - coinPos.x, mousePos.y - coinPos.y).normalized * 0;
-		Debug.Log(body.velocity);
-		Debug.Log(throwVel);
-		Debug.Log(body.velocity + throwVel);
-		return body.velocity + throwVel;
+		return body.velocity;
 	}
 	
-	void ThrowCoin() {
-		thrownCoins.AddLast(Instantiate(coinProjectile, PositionOfThrownCoin(), transform.rotation));
+	void ThrowCoin(Vector3 pos) {
+		thrownCoins.AddLast(Instantiate(coinProjectile, pos, transform.rotation));
 		currentThrownCoin = thrownCoins.Last;
 		
 		currentThrownCoin.Value.GetComponent<Rigidbody2D>().velocity = VelocityOfThrownCoin();
-		
+	}
+	
+	void ThrowCoin() {
+		ThrowCoin(PositionOfThrownCoin());
 	}
 	
 	void MoveAwayFromCoin() {
@@ -152,12 +153,23 @@ public class Player : MonoBehaviour
 		}
 	}
 	
+	void ResetScene() {
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+	}
+	
+	void MaybeResetScene() {
+		if (Input.GetKeyDown(KeyCode.R)) {
+			ResetScene();
+		}
+	}
+	
     // Update is called once per frame
     void Update()
     {
 		GetData();
         Move();
 		Animate();
+		MaybeResetScene();
 		SetData();
     }
 
