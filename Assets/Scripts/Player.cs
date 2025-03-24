@@ -83,9 +83,16 @@ public class Player : MonoBehaviour
 		return body.velocity;
 	}
 	
+	void ReassignCurrentThrownCoin(LinkedListNode<GameObject> toReassign) {
+		if (currentThrownCoin != null && currentThrownCoin.Value != null) {
+			currentThrownCoin.Value.GetComponent<Coin>().glowing = false;
+		}
+		currentThrownCoin = toReassign;
+		currentThrownCoin.Value.GetComponent<Coin>().glowing = true;
+	}
 	void ThrowCoin(Vector3 pos) {
 		thrownCoins.AddLast(Instantiate(coinProjectile, pos, transform.rotation));
-		currentThrownCoin = thrownCoins.Last;
+		ReassignCurrentThrownCoin(thrownCoins.Last);
 		
 		currentThrownCoin.Value.GetComponent<Rigidbody2D>().velocity = VelocityOfThrownCoin();
 	}

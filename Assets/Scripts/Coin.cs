@@ -10,12 +10,15 @@ public class Coin : MonoBehaviour
 	private Vector3 prevPos;
 	private Vector3 prevVel;
     
+	private SpriteRenderer renderer;
+	public bool glowing = false;
 	
 	public Vector3 movementMissedAmount {get; private set;}
 	
 	void SaveAttributes() {
 		prevPos = body.position;
 		prevVel = body.velocity;
+		renderer = GetComponent<SpriteRenderer>();
 	}
 	
     void Start()
@@ -24,26 +27,16 @@ public class Coin : MonoBehaviour
 		SaveAttributes();
     }
 	
-	private Vector3 PredictedPosition() {
-		return prevPos + prevVel;
-	}
-	
-	private float MissedXMovement() {
-		return (transform.position.x / Consts.frameRate) - (prevVel.x + prevPos.x);
-	}
-	
-	private float MissedYMovement() {
-		return (prevVel.y / Consts.frameRate) + prevPos.y - transform.position.y;
-	}
-	
-	private void PosPredictedCorrectly() {
-		movementMissedAmount = new Vector3(MissedXMovement(), MissedYMovement(), 0);
-	}
+	private Color orange = new Color(255, 128, 0);
 	
     // Update is called once per frame
     void Update()
     {
-        PosPredictedCorrectly();
-		
+		if (glowing) {
+			renderer.color = orange;
+		}
+		else {
+			renderer.color = Color.yellow;
+		}
     }
 }
