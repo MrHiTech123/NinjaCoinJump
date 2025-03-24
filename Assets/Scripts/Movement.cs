@@ -28,6 +28,6 @@ class Movement {
 	
 	public static void BothMaybeMoveAwayDistScaled(GameObject mover, GameObject from) {
 		
-		BothMaybeMoveAway(mover.GetComponent<Rigidbody2D>(), from.GetComponent<Rigidbody2D>(), pushingPower / Mathf.Pow(Vector2.Distance(mover.transform.position, from.transform.position), 0.5f));
+		BothMaybeMoveAway(mover.GetComponent<Rigidbody2D>(), from.GetComponent<Rigidbody2D>(), pushingPower / Mathf.Pow(Vector2.Distance(mover.transform.position, from.transform.position), 1f));
 	}
 }
