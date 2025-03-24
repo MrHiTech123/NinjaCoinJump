@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
     }
 	
-	private float maxSpeed = 10f;
+	private float maxSpeed = 15f;
 	private float acceleration = 0.2f;
 	private float jumpHeight = 4f;	
 	private float horizontalMove;
@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
 	}
 	
 	
-	private Vector3 PositionOfThrownCoin() {
+	private Vector3 PositionOfThrownCoinMouse() {
 		// Algorithm adapted from the one in the top answer found here
 		// https://stackoverflow.com/questions/3180000/calculate-a-vector-from-a-point-in-a-rectangle-to-edge-based-on-angle
 		// I didn't read any of the other answers, and the algorithm definitely took up residence in my head
@@ -91,7 +91,15 @@ public class Player : MonoBehaviour
 	}
 	
 	void ThrowCoin() {
-		ThrowCoin(PositionOfThrownCoin());
+		ThrowCoin(PositionOfThrownCoinMouse());
+	}
+	
+	void CoinJump() {
+		if (!isGrounded) {
+			return;
+		}
+		Jump();
+		ThrowCoin(new Vector3(transform.position.x, transform.position.y - (boxCollider.size.y / 2), transform.position.z));
 	}
 	
 	void MoveAwayFromCoin() {
@@ -121,13 +129,16 @@ public class Player : MonoBehaviour
 		
 		body.velocity = new Vector2(horizontalMove, body.velocity.y);
 		
+		if (Input.GetKeyDown(KeyCode.Space)) {
+			CoinJump();
+		}
 		if (Input.GetKey(KeyCode.UpArrow)) {
 			Jump();
 		}
 		if (Input.GetMouseButtonDown((int)UnityEngine.UIElements.MouseButton.LeftMouse)) {
 			ThrowCoin();
 		}
-		if (Input.GetMouseButton((int)UnityEngine.UIElements.MouseButton.LeftMouse) || Input.GetKey(KeyCode.Space)) {
+		if (Input.GetMouseButton((int)UnityEngine.UIElements.MouseButton.LeftMouse) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Z)) {
 			MoveAwayFromCoin();
 		}
 		
