@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Collectible
+  - CoinProjectile
   layers:
   - Default
   - TransparentFX

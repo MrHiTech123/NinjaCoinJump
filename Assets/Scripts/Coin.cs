@@ -51,6 +51,6 @@ public class Coin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		
+		if (glowing) Debug.Log(body.velocity.magnitude);
     }
 }
