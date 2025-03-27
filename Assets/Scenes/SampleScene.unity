@@ -287,6 +287,10 @@ PrefabInstance:
       value: 52
       objectReference: {fileID: 0}
     - target: {fileID: 1815436173444478157, guid: e5b030e22ab0a6a4fb6adb18eea07017, type: 3}
+      propertyPath: m_margin.z
+      value: -45.217697
+      objectReference: {fileID: 0}
+    - target: {fileID: 1815436173444478157, guid: e5b030e22ab0a6a4fb6adb18eea07017, type: 3}
       propertyPath: m_fontSizeBase
       value: 52
       objectReference: {fileID: 0}
@@ -296,11 +300,11 @@ PrefabInstance:
       objectReference: {fileID: 519420031}
     - target: {fileID: 7319333550640938450, guid: e5b030e22ab0a6a4fb6adb18eea07017, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -823
+      value: -722
       objectReference: {fileID: 0}
     - target: {fileID: 7319333550640938450, guid: e5b030e22ab0a6a4fb6adb18eea07017, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 485
+      value: 443
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
