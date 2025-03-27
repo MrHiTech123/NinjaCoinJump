@@ -46,7 +46,6 @@ public class Coin : MonoBehaviour
 		body = GetComponent<Rigidbody2D>();
 		SaveAttributes();
 		renderer = GetComponent<SpriteRenderer>();
-		// Glowing = false;
     }
 	
     // Update is called once per frame

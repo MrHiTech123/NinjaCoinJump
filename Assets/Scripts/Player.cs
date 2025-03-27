@@ -156,7 +156,7 @@ public class Player : MonoBehaviour
 		if (Input.GetMouseButtonDown((int)UnityEngine.UIElements.MouseButton.LeftMouse)) {
 			ThrowCoin();
 		}
-		if (Input.GetMouseButton((int)UnityEngine.UIElements.MouseButton.LeftMouse) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Z)) {
+		if (Input.GetMouseButton((int)UnityEngine.UIElements.MouseButton.LeftMouse) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.X)) {
 			MoveAwayFromCoin();
 		}
 		if (Input.GetKeyDown(KeyCode.Z)) {
