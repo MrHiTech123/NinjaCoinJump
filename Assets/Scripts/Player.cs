@@ -90,6 +90,19 @@ public class Player : MonoBehaviour
 		currentThrownCoin = toReassign;
 		currentThrownCoin.Value.GetComponent<Coin>().glowing = true;
 	}
+	
+	void IncrementCurrentThrownCoin() {
+		if (currentThrownCoin.Next != null) {
+			ReassignCurrentThrownCoin(currentThrownCoin.Next);
+		}
+	}
+	
+	void DecrementCurrentThrownCoin() {
+		if (currentThrownCoin.Previous != null) {
+			ReassignCurrentThrownCoin(currentThrownCoin.Previous);
+		}
+	}
+	
 	void ThrowCoin(Vector3 pos) {
 		thrownCoins.AddLast(Instantiate(coinProjectile, pos, transform.rotation));
 		ReassignCurrentThrownCoin(thrownCoins.Last);
@@ -102,9 +115,6 @@ public class Player : MonoBehaviour
 	}
 	
 	void CoinJump() {
-		if (!isGrounded) {
-			return;
-		}
 		Jump();
 		ThrowCoin(new Vector3(transform.position.x, transform.position.y - (boxCollider.size.y / 2), transform.position.z));
 	}
@@ -147,6 +157,12 @@ public class Player : MonoBehaviour
 		}
 		if (Input.GetMouseButton((int)UnityEngine.UIElements.MouseButton.LeftMouse) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.Z)) {
 			MoveAwayFromCoin();
+		}
+		if (Input.GetKeyDown(KeyCode.Z)) {
+			DecrementCurrentThrownCoin();
+		}
+		if (Input.GetKeyDown(KeyCode.C)) {
+			IncrementCurrentThrownCoin();
 		}
 		
 	}
