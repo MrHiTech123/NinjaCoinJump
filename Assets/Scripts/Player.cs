@@ -272,9 +272,11 @@ public class Player : MonoBehaviour
 			Debug.Log("Collecting!");
 			AudioManager.PlayAudio("collectCoin");
 			Destroy(collision.gameObject);
+			return;
 		}
 		if (collision.gameObject.CompareTag("Respawn")) {
 			GameManager.SetSpawnPoint(collision.gameObject.transform.position);
+			return;
 		}
 	}
 	
