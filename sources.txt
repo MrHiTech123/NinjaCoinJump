@@ -1,0 +1,17 @@
+Sources:
+https://docs.unity3d.com/ScriptReference/Camera.ScreenToWorldPoint.html
+https://stackoverflow.com/questions/10164355/how-do-i-get-the-n-th-element-in-a-linkedlistt
+https://stackoverflow.com/questions/2719699/when-should-use-readonly-and-get-only-properties
+https://stackoverflow.com/questions/4662180/c-sharp-public-variable-as-writeable-inside-the-class-but-readonly-outside-the-c
+https://stackoverflow.com/questions/3180000/calculate-a-vector-from-a-point-in-a-rectangle-to-edge-based-on-angle
+https://www.youtube.com/watch?v=6SKHDaSe768
+https://www.w3schools.com/cs/cs_properties.php
+https://stackoverflow.com/questions/40730/what-is-the-best-way-to-give-a-c-sharp-auto-property-an-initial-value
+
+
+Art credit:
+Ninja Sprite by pzUH, https://opengameart.org/content/ninja-adventure-free-sprite
+
+Inspiration:
+A heavy inspiration for this game was the Mistborn Trilogy by Brandon Sanderson,
+but this is its own legally distinct game that is completely unaffiliated with those books
