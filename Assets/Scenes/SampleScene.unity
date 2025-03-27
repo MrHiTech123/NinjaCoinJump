@@ -283,6 +283,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1815436173444478157, guid: e5b030e22ab0a6a4fb6adb18eea07017, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1815436173444478157, guid: e5b030e22ab0a6a4fb6adb18eea07017, type: 3}
       propertyPath: m_fontSize
       value: 52
       objectReference: {fileID: 0}
@@ -300,11 +304,11 @@ PrefabInstance:
       objectReference: {fileID: 519420031}
     - target: {fileID: 7319333550640938450, guid: e5b030e22ab0a6a4fb6adb18eea07017, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -722
+      value: -726
       objectReference: {fileID: 0}
     - target: {fileID: 7319333550640938450, guid: e5b030e22ab0a6a4fb6adb18eea07017, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 443
+      value: 483
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -859,6 +863,53 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &1097019831
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1097019833}
+  - component: {fileID: 1097019832}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1097019832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097019831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41a81c79922abce4fa2b481a4275f12d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClipList:
+  - {fileID: 8300000, guid: 4b5b471cf035aaa499c68880bf15f710, type: 3}
+  - {fileID: 8300000, guid: 8432b9f1ac263c6408b67219fff1f59d, type: 3}
+--- !u!4 &1097019833
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097019831}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -10.247737, y: 3.2012525, z: -3.8260894}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1680251529
 GameObject:
   m_ObjectHideFlags: 0
@@ -1304,7 +1355,8 @@ PrefabInstance:
       propertyPath: scoreboard
       value: 
       objectReference: {fileID: 233531667}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3623825313061715269, guid: f216dc5aa881a32468ca8fb913fafd4a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1324,3 +1376,4 @@ SceneRoots:
   - {fileID: 3664069810887485032}
   - {fileID: 78952620}
   - {fileID: 233531666}
+  - {fileID: 1097019833}

@@ -26,7 +26,7 @@ public class AudioManager : MonoBehaviour
 	}
 	
 	public static void PlayAudio(string audioName) {
-		// INSTANCE.PlayAudioNonStatic(audioName);
+		INSTANCE.PlayAudioNonStatic(audioName);
 	}
 	
 	private void PlayAudioNonStatic(string audioName) {
@@ -34,7 +34,7 @@ public class AudioManager : MonoBehaviour
 		if (clip == null) {
 			throw new KeyNotFoundException("Audioclip \"" + audioName + "\" not found in audioClipList");
 		}
-		
+				
 		audioSource.PlayOneShot(clip);
 		
 	}

@@ -246,6 +246,7 @@ public class Player : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("Collectible")) {
 			GameManager.CollectCoin();
+			Debug.Log("Collecting!");
 			AudioManager.PlayAudio("collectCoin");
 			Destroy(collision.gameObject);
 		}

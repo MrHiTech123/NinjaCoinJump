@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
 	}
 	void Start()
 	{
-		Debug.Log("Starting GameManager");
 		UpdateCoinText();
 	}
 
