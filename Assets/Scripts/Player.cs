@@ -85,10 +85,10 @@ public class Player : MonoBehaviour
 	
 	void ReassignCurrentThrownCoin(LinkedListNode<GameObject> toReassign) {
 		if (currentThrownCoin != null && currentThrownCoin.Value != null) {
-			currentThrownCoin.Value.GetComponent<Coin>().glowing = false;
+			currentThrownCoin.Value.GetComponent<Coin>().Glowing = false;
 		}
 		currentThrownCoin = toReassign;
-		currentThrownCoin.Value.GetComponent<Coin>().glowing = true;
+		currentThrownCoin.Value.GetComponent<Coin>().Glowing = true;
 	}
 	
 	void IncrementCurrentThrownCoin() {
@@ -105,6 +105,7 @@ public class Player : MonoBehaviour
 	
 	void ThrowCoin(Vector3 pos) {
 		thrownCoins.AddLast(Instantiate(coinProjectile, pos, transform.rotation));
+		Debug.Log(thrownCoins.Last.Value);
 		ReassignCurrentThrownCoin(thrownCoins.Last);
 		
 		currentThrownCoin.Value.GetComponent<Rigidbody2D>().velocity = VelocityOfThrownCoin();
