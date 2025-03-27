@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 	static void UpdateCoinText() {
 		coinText.text = COLLECTED_COIN_TEXT + collectedCoins;
 	}
-	static void Start()
+	void Start()
 	{
 		Debug.Log("Starting GameManager");
 		UpdateCoinText();

@@ -13,9 +13,9 @@ TagManager:
   - 
   - Water
   - UI
-  - Coin
+  - CoinProjectile
   - Player
-  - 
+  - CoinCollectible
   - 
   - 
   - 
