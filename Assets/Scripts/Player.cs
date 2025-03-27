@@ -103,9 +103,27 @@ public class Player : MonoBehaviour
 		}
 	}
 	
+	LinkedListNode<GameObject> ClosestCoinNode() {
+		LinkedListNode<GameObject> closest = thrownCoins.First;
+		float biggestDist = Vector2.Distance(closest.Value.transform.position, transform.position);
+		for (LinkedListNode<GameObject> c = thrownCoins.First; c != null; c = c.Next) {
+			float maybeDist = Vector2.Distance(c.Value.transform.position, transform.position);
+			
+			if (maybeDist <= biggestDist) {
+				closest = c;
+				biggestDist = maybeDist;
+			}
+		}
+		return closest;
+	}
+	void MakeClosestCoinCurrentThrownCoin() {
+		if (thrownCoins.Count > 0) {
+			ReassignCurrentThrownCoin(ClosestCoinNode());
+		}
+	}
+	
 	void ThrowCoin(Vector3 pos) {
 		thrownCoins.AddLast(Instantiate(coinProjectile, pos, transform.rotation));
-		Debug.Log(thrownCoins.Last.Value);
 		ReassignCurrentThrownCoin(thrownCoins.Last);
 		
 		currentThrownCoin.Value.GetComponent<Rigidbody2D>().velocity = VelocityOfThrownCoin();
@@ -135,10 +153,10 @@ public class Player : MonoBehaviour
 	}
 	
 	void Move() {
-		if (Input.GetKey(KeyCode.LeftArrow) && isGrounded) {
+		if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) && isGrounded) {
 			horizontalMove = Mathf.Clamp(horizontalMove - acceleration, -maxSpeed, 0);
 		}
-		else if (Input.GetKey(KeyCode.RightArrow) && isGrounded) {
+		else if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) && isGrounded) {
 			horizontalMove = Mathf.Clamp(horizontalMove + acceleration, 0, maxSpeed);
 		}
 		else if (isGrounded) {
@@ -150,20 +168,23 @@ public class Player : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			CoinJump();
 		}
-		if (Input.GetKey(KeyCode.UpArrow)) {
+		if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) {
 			Jump();
 		}
 		if (Input.GetMouseButtonDown((int)UnityEngine.UIElements.MouseButton.LeftMouse)) {
 			ThrowCoin();
 		}
-		if (Input.GetMouseButton((int)UnityEngine.UIElements.MouseButton.LeftMouse) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.X)) {
+		if (Input.GetMouseButton((int)UnityEngine.UIElements.MouseButton.LeftMouse) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.J) || Input.GetKey(KeyCode.C)) {
 			MoveAwayFromCoin();
 		}
-		if (Input.GetKeyDown(KeyCode.Z)) {
+		if (Input.GetKeyDown(KeyCode.H) || Input.GetKeyDown(KeyCode.X)) {
 			DecrementCurrentThrownCoin();
 		}
-		if (Input.GetKeyDown(KeyCode.C)) {
+		if (Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.V)) {
 			IncrementCurrentThrownCoin();
+		}
+		if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.Z)) {
+			MakeClosestCoinCurrentThrownCoin();
 		}
 		
 	}
@@ -172,7 +193,6 @@ public class Player : MonoBehaviour
 			playerAnimator.Play("jump");
 		}
 		else if (horizontalMove <= -acceleration || horizontalMove >= acceleration) {
-			Debug.Log(horizontalMove + "<-hmove acc->" + acceleration);
 			playerAnimator.Play("running");
 		}
 		else {
@@ -226,7 +246,6 @@ public class Player : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("Collectible")) {
 			GameManager.CollectCoin();
-			Debug.Log(GameManager.GetCollectedCoins());
 			AudioManager.PlayAudio("collectCoin");
 			Destroy(collision.gameObject);
 		}
