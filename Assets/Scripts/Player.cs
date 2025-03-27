@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
 	
 	private LinkedList<GameObject> thrownCoins = new LinkedList<GameObject>();
 	private LinkedListNode<GameObject> currentThrownCoin;
+	
+	private const float respawnHeight = -100;
+	
 	Rigidbody2D body;
 	// Start is called before the first frame update
 
@@ -33,6 +36,7 @@ public class Player : MonoBehaviour
 	void Start()
     {
         body = GetComponent<Rigidbody2D>();
+		GameManager.SetSpawnPoint(transform.position);
     }
 	
 	private float maxSpeed = 15f;
@@ -78,6 +82,17 @@ public class Player : MonoBehaviour
 		
 	}
 	
+	void Respawn() {
+		transform.position = GameManager.GetSpawnPoint();
+		body.velocity = new Vector2(0, 0);
+		horizontalMove = 0;
+	}
+	
+	void MaybeRespawn() {
+		if (transform.position.y < respawnHeight) {
+			Respawn();
+		}
+	}
 	
 	private Vector2 VelocityOfThrownCoin() {
 		return body.velocity;
@@ -123,6 +138,12 @@ public class Player : MonoBehaviour
 	}
 	
 	void ThrowCoin(Vector3 pos) {
+		if (GameManager.GetCollectedCoins() <= 0) {
+			return;
+		}
+		
+		GameManager.DeCollectCoin();
+		
 		thrownCoins.AddLast(Instantiate(coinProjectile, pos, transform.rotation));
 		ReassignCurrentThrownCoin(thrownCoins.Last);
 		
@@ -209,6 +230,7 @@ public class Player : MonoBehaviour
 	}
 	
 	void ResetScene() {
+		GameManager.ResetCoins();
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 	
@@ -225,6 +247,7 @@ public class Player : MonoBehaviour
         Move();
 		Animate();
 		MaybeResetScene();
+		MaybeRespawn();
 		SetData();
     }
 
@@ -249,6 +272,9 @@ public class Player : MonoBehaviour
 			Debug.Log("Collecting!");
 			AudioManager.PlayAudio("collectCoin");
 			Destroy(collision.gameObject);
+		}
+		if (collision.gameObject.CompareTag("Respawn")) {
+			GameManager.SetSpawnPoint(collision.gameObject.transform.position);
 		}
 	}
 	
