@@ -275,7 +275,9 @@ public class Player : MonoBehaviour
 			return;
 		}
 		if (collision.gameObject.CompareTag("Respawn")) {
-			GameManager.SetSpawnPoint(collision.gameObject.transform.position);
+			Vector3 spawnPoint = collision.gameObject.transform.position;
+			spawnPoint.z = transform.position.z;
+			GameManager.SetSpawnPoint(spawnPoint);
 			return;
 		}
 	}
