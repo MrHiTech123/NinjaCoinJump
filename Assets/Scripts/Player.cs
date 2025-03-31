@@ -198,13 +198,13 @@ public class Player : MonoBehaviour
 		if (Input.GetMouseButton((int)UnityEngine.UIElements.MouseButton.LeftMouse) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.J) || Input.GetKey(KeyCode.C)) {
 			MoveAwayFromCoin();
 		}
-		if (Input.GetKeyDown(KeyCode.H) || Input.GetKeyDown(KeyCode.X)) {
+		if (Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.Z)) {
 			DecrementCurrentThrownCoin();
 		}
-		if (Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.V)) {
+		if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.X)) {
 			IncrementCurrentThrownCoin();
 		}
-		if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.Z)) {
+		if (Input.GetKeyDown(KeyCode.H) || Input.GetKeyDown(KeyCode.V)) {
 			MakeClosestCoinCurrentThrownCoin();
 		}
 		

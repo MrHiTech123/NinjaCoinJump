@@ -9,6 +9,7 @@ TagManager:
   - CoinProjectile
   - Undefined
   - BreakableBlock
+  - Enemy
   layers:
   - Default
   - TransparentFX
