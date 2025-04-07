@@ -1,12 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Schema;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -19,8 +15,9 @@ public class Player : MonoBehaviour
 	
 	private LinkedList<GameObject> thrownCoins = new LinkedList<GameObject>();
 	private LinkedListNode<GameObject> currentThrownCoin;
+	private float pickUpThreshhold;
 	
-	private const float respawnHeight = -100;
+	private const float respawnHeight = -20;
 	
 	Rigidbody2D body;
 	// Start is called before the first frame update
@@ -240,6 +237,23 @@ public class Player : MonoBehaviour
 		}
 	}
 	
+	void PickUpCoin(GameObject toBePickedUp) {
+		
+	}
+	
+	void PickUpClosestCoin() {
+		GameObject closestCoin = ClosestCoinNode().Value;
+		if (Vector2.Distance(transform.position, closestCoin.transform.position) < pickUpThreshhold) {
+			PickUpCoin(closestCoin);
+		}
+	}
+	
+	void MaybePickUpClosestCoin() {
+		if (Input.GetKeyDown(KeyCode.P)) {
+			PickUpClosestCoin();
+		}
+	}
+	
     // Update is called once per frame
     void Update()
     {
@@ -250,10 +264,13 @@ public class Player : MonoBehaviour
 		MaybeRespawn();
 		SetData();
     }
-
+	
+	private HashSet<GameObject> touchingGroundedObjects = new HashSet<GameObject>();
+	
 	void OnCollisionEnter2D(Collision2D collision)
 	{
 		if (collision.gameObject.CompareTag("Ground")) {
+			touchingGroundedObjects.Add(collision.gameObject);
 			isGrounded = true;
 		}
 	}
@@ -261,7 +278,10 @@ public class Player : MonoBehaviour
 	void OnCollisionExit2D(Collision2D collision)
 	{
 		if (collision.gameObject.CompareTag("Ground")) {
-			isGrounded = false;
+			touchingGroundedObjects.Remove(collision.gameObject);
+			if (touchingGroundedObjects.Count == 0) {
+				isGrounded = false;
+			}
 		}
 	}
 
