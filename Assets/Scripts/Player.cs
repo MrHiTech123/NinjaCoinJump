@@ -79,10 +79,13 @@ public class Player : MonoBehaviour
 		
 	}
 	
-	void Respawn() {
-		transform.position = GameManager.GetSpawnPoint();
+	void HaltMovement() {
 		body.velocity = new Vector2(0, 0);
 		horizontalMove = 0;
+	}
+	void Respawn() {
+		transform.position = GameManager.GetSpawnPoint();
+		HaltMovement();
 	}
 	
 	void MaybeRespawn() {
@@ -272,6 +275,9 @@ public class Player : MonoBehaviour
 		if (collision.gameObject.CompareTag("Ground")) {
 			touchingGroundedObjects.Add(collision.gameObject);
 			isGrounded = true;
+		}
+		if (collision.gameObject.CompareTag("Enemy")) {
+			Respawn();
 		}
 	}
 
