@@ -88,6 +88,7 @@ public class Player : MonoBehaviour
 		HaltMovement();
 	}
 	
+	
 	void MaybeRespawn() {
 		if (transform.position.y < respawnHeight) {
 			Respawn();
@@ -290,7 +291,6 @@ public class Player : MonoBehaviour
 			}
 		}
 	}
-
 	void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.gameObject.CompareTag("Collectible")) {
