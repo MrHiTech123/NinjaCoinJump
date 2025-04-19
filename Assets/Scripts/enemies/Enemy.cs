@@ -34,20 +34,15 @@ public class Enemy : MonoBehaviour
 	
 	// Protected = visible to things that inherit this
 	// Virtual = can be overwritten by child class
-	protected virtual void MoveToPlayer() {
-		Debug.Log(" MoveToPlayer");
-		
+	protected virtual void MoveToPlayer() {		
 		targetPos = player.transform.position;
 	}
 	
 	protected virtual void Patrol() {
-		Debug.Log(" Patrol");
 		if (transform.position.x <= startPos.x) {
-			Debug.Log("Left");
 			targetPos = endPos;
 		}
 		else if (transform.position.x >= endPos.x) {
-			Debug.Log("right");
 			targetPos = startPos;
 		}
 		else if (transform.position == targetPos) {

@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
 	
 	private LinkedList<GameObject> thrownCoins = new LinkedList<GameObject>();
 	private LinkedListNode<GameObject> currentThrownCoin;
-	private float pickUpThreshhold;
+	private float pickUpThreshhold = 1;
 	
 	private const float respawnHeight = -20;
 	
@@ -155,6 +155,7 @@ public class Player : MonoBehaviour
 		ThrowCoin(PositionOfThrownCoinMouse());
 	}
 	
+	
 	void CoinJump() {
 		Jump();
 		ThrowCoin(new Vector3(transform.position.x, transform.position.y - (boxCollider.size.y / 2), transform.position.z));
@@ -199,12 +200,6 @@ public class Player : MonoBehaviour
 		if (Input.GetMouseButton((int)UnityEngine.UIElements.MouseButton.LeftMouse) || Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.J) || Input.GetKey(KeyCode.C)) {
 			MoveAwayFromCoin();
 		}
-		if (Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.Z)) {
-			DecrementCurrentThrownCoin();
-		}
-		if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.X)) {
-			IncrementCurrentThrownCoin();
-		}
 		if (Input.GetKeyDown(KeyCode.H) || Input.GetKeyDown(KeyCode.V)) {
 			MakeClosestCoinCurrentThrownCoin();
 		}
@@ -242,7 +237,9 @@ public class Player : MonoBehaviour
 	}
 	
 	void PickUpCoin(GameObject toBePickedUp) {
-		
+		thrownCoins.Remove(toBePickedUp);
+		Destroy(toBePickedUp);
+		GameManager.CollectCoin();
 	}
 	
 	void PickUpClosestCoin() {
@@ -253,7 +250,8 @@ public class Player : MonoBehaviour
 	}
 	
 	void MaybePickUpClosestCoin() {
-		if (Input.GetKeyDown(KeyCode.P)) {
+		if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.X)) {
+			Debug.Log("Picking up coin key pressed");
 			PickUpClosestCoin();
 		}
 	}
@@ -264,6 +262,7 @@ public class Player : MonoBehaviour
 		GetData();
         Move();
 		Animate();
+		MaybePickUpClosestCoin();
 		MaybeResetScene();
 		MaybeRespawn();
 		SetData();
