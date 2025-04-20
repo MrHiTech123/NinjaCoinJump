@@ -251,8 +251,7 @@ public class Player : MonoBehaviour
 	}
 	
 	void MaybePickUpClosestCoin() {
-		if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.X)) {
-			Debug.Log("Picking up coin key pressed");
+		if (Input.GetKey(KeyCode.P) || Input.GetKey(KeyCode.X)) {
 			PickUpClosestCoin();
 		}
 	}
