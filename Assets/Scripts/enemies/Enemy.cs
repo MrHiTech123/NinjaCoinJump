@@ -6,12 +6,14 @@ public class Enemy : MonoBehaviour
 {
 	
 	protected float speed = 2.5f;
-	protected float safeDistance = 5f;
+	protected float safeDistance = 15f;
 	protected GameObject player;
 	protected Vector3 startPos;
 	protected Vector3 endPos;
 	protected Vector3 targetPos;
 	protected bool chasingPlayer = false;
+	
+	[SerializeField] private float patrolSize;
 	
 	private Animator animator;
 	private Rigidbody2D body;
@@ -27,7 +29,7 @@ public class Enemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
 		startPos = transform.position;
 		targetPos = startPos;
-		endPos = startPos + new Vector3(20, 0, 0);
+		endPos = startPos + new Vector3(patrolSize, 0, 0);
 		animator = GetComponent<Animator>();
 		body = GetComponent<Rigidbody2D>();
     }
@@ -72,7 +74,8 @@ public class Enemy : MonoBehaviour
 		Debug.Log(Time.deltaTime);
 		Debug.Log(targetPos);
 		Debug.Log("end");
-		transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
+		Vector2 newPos = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
+		transform.position = new Vector3(newPos.x, transform.position.y, transform.position.z);
 	}
 	
 	void GetData() {

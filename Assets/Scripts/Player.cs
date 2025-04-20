@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
 	private LinkedListNode<GameObject> currentThrownCoin;
 	private float pickUpThreshhold = 1;
 	
-	private const float respawnHeight = -20;
+	[SerializeField] private float respawnHeight = -20;
 	
 	Rigidbody2D body;
 	// Start is called before the first frame update
