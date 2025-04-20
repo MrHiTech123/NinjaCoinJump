@@ -277,7 +277,13 @@ public class Player : MonoBehaviour
 			isGrounded = true;
 		}
 		if (collision.gameObject.CompareTag("Enemy")) {
-			Respawn();
+			Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+			if (enemy == null) {
+				return;
+			}
+			if (!enemy.isDying()) {
+				Respawn();
+			}
 		}
 	}
 

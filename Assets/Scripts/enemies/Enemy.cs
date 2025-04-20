@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
 	
 	private Animator animator;
 	private Rigidbody2D body;
-	private bool dying = false;
+	private bool dying;
 	
 	private const float animationMovementThreshhold = 0.0001f;
 	private const float speedThreshholdDeath = 100;
@@ -38,6 +38,9 @@ public class Enemy : MonoBehaviour
 		targetPos = player.transform.position;
 	}
 	
+	public bool isDying() {
+		return dying;
+	}
 	protected virtual void Patrol() {
 		if (transform.position.x <= startPos.x) {
 			targetPos = endPos;
