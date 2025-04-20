@@ -100,10 +100,13 @@ public class Enemy : MonoBehaviour
 		yield return new WaitForSeconds(1.5f);
 		Destroy(this.gameObject);
 	}
+	
+	void HaltVelocity() {
+		body.velocity = new Vector2();
+	}
 	void Die() {
 		dying = true;
 		body.isKinematic = false;
-		body.velocity = new Vector2();
 		StartCoroutine(DestroySelfAfterAnimation());
 	}
 
@@ -133,6 +136,7 @@ public class Enemy : MonoBehaviour
 	// Update is called once per frame
 	void Update()
     {
+		HaltVelocity();
 		if (!dying) {
 			LivingBehavior();
 		}
