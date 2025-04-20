@@ -7,7 +7,7 @@ https://stackoverflow.com/questions/3180000/calculate-a-vector-from-a-point-in-a
 https://www.youtube.com/watch?v=6SKHDaSe768
 https://www.w3schools.com/cs/cs_properties.php
 https://stackoverflow.com/questions/40730/what-is-the-best-way-to-give-a-c-sharp-auto-property-an-initial-value
-
+https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Camera-fieldOfView.html
 
 Art credit:
 Ninja Sprite by pzUH, https://opengameart.org/content/ninja-adventure-free-sprite
