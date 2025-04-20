@@ -56,9 +56,21 @@ public class Enemy : MonoBehaviour
 		
 	}
 	
+	bool CanSee(GameObject other) {
+		Vector2 direction = other.transform.position - transform.position;
+		LayerMask mask = LayerMask.GetMask(new string[]{"Player", "WallOrGround"});
+		Debug.Log(other);
+		RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, Mathf.Infinity, mask);
+		Debug.Log(hit.collider);
+		if (hit.collider != null && hit.collider.gameObject == other) {
+			Debug.Log("Spotted!");
+			return true;
+		}
+		return false;
+	}
 	protected virtual void DoMovement() {
 		float currentDistance = Vector2.Distance(transform.position, player.transform.position);
-		if (currentDistance > safeDistance) {
+		if (currentDistance > safeDistance || !CanSee(player)) {
 			if (chasingPlayer) {
 				targetPos = startPos;
 				chasingPlayer = false;
@@ -69,11 +81,6 @@ public class Enemy : MonoBehaviour
 			chasingPlayer = true;
 			MoveToPlayer();
 		}
-		Debug.Log("Start");
-		Debug.Log(speed);
-		Debug.Log(Time.deltaTime);
-		Debug.Log(targetPos);
-		Debug.Log("end");
 		Vector2 newPos = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
 		transform.position = new Vector3(newPos.x, transform.position.y, transform.position.z);
 	}
@@ -122,6 +129,7 @@ public class Enemy : MonoBehaviour
 			if (collision.relativeVelocity.magnitude > speedThreshholdDeath) {
 				Die();
 			}
+			collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2();
 		}
 	}
 	

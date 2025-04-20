@@ -25,13 +25,11 @@ public class LoadScene : MonoBehaviour
 			int currentIndex = SceneManager.GetActiveScene().buildIndex;
 			int nextIndex = currentIndex + 1;
 			int lastIndex = SceneManager.sceneCountInBuildSettings - 1;
-			Debug.Log(currentIndex + " " + nextIndex + " " + lastIndex);
 			
 			if (nextIndex <= lastIndex) {
 				SceneManager.LoadScene(nextIndex);
 			}
 			else {
-				Debug.Log("Last scene");
 			}
 		}
 	}

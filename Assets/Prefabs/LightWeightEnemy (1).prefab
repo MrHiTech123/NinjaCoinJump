@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8041067988614674801}
   - component: {fileID: 5460934839818924907}
   - component: {fileID: -6941464532438957782}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LightWeightEnemy (1)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 6200000, guid: 7835b4c91f6c9614b95098fe2c3438ff, type: 2}
+  m_Material: {fileID: 6200000, guid: 6dd7ee0abd4c5bf48bd2753cf3f599b8, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -124,7 +124,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 5259161801156288338}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 6dd7ee0abd4c5bf48bd2753cf3f599b8, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec803b146fd1fd48bf7c794ebaf5c91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  patrolSize: 0
 --- !u!95 &-6941464532438957782
 Animator:
   serializedVersion: 5

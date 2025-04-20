@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -47,6 +48,10 @@ public class GameManager : MonoBehaviour
 		UpdateCoinText();
 	}
 	
+	public static void LoadScene(string sceneName) {
+		ResetCoins();
+		SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+	}
 	public static bool IsGround(GameObject gameObject) {
 		return gameObject.CompareTag("Ground") || gameObject.CompareTag("BreakableBlock");
 	}

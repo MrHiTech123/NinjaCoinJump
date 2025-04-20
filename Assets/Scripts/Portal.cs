@@ -23,7 +23,7 @@ public class Portal : MonoBehaviour
 	void OnCollisionEnter2D(Collision2D collision)
 	{
 		if (collision.gameObject.CompareTag("Player")) {
-			SceneManager.LoadScene(destination, LoadSceneMode.Single);
+			GameManager.LoadScene(destination);
 		}
 	}
 }

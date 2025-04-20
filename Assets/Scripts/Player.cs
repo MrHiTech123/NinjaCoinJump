@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
 	
 	private LinkedList<GameObject> thrownCoins = new LinkedList<GameObject>();
 	private LinkedListNode<GameObject> currentThrownCoin;
-	private float pickUpThreshhold = 1;
+	private const float pickUpThreshhold = 1;
 	
 	[SerializeField] private float respawnHeight = -20;
 	
@@ -226,8 +226,7 @@ public class Player : MonoBehaviour
 	}
 	
 	void ResetScene() {
-		GameManager.ResetCoins();
-		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		GameManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 	
 	void MaybeResetScene() {
@@ -302,7 +301,6 @@ public class Player : MonoBehaviour
 	{
 		if (collision.gameObject.CompareTag("Collectible")) {
 			GameManager.CollectCoin();
-			Debug.Log("Collecting!");
 			AudioManager.PlayAudio("collectCoin");
 			Destroy(collision.gameObject);
 			return;
