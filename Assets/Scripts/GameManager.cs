@@ -46,4 +46,8 @@ public class GameManager : MonoBehaviour
 		++collectedCoins;
 		UpdateCoinText();
 	}
+	
+	public static bool IsGround(GameObject gameObject) {
+		return gameObject.CompareTag("Ground") || gameObject.CompareTag("BreakableBlock");
+	}
 }

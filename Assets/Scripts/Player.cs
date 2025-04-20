@@ -240,6 +240,7 @@ public class Player : MonoBehaviour
 		thrownCoins.Remove(toBePickedUp);
 		Destroy(toBePickedUp);
 		GameManager.CollectCoin();
+		AudioManager.PlayAudio("collectCoin");
 	}
 	
 	void PickUpClosestCoin() {
@@ -270,9 +271,11 @@ public class Player : MonoBehaviour
 	
 	private HashSet<GameObject> touchingGroundedObjects = new HashSet<GameObject>();
 	
+	
+	
 	void OnCollisionEnter2D(Collision2D collision)
 	{
-		if (collision.gameObject.CompareTag("Ground")) {
+		if (GameManager.IsGround(collision.gameObject)) {
 			touchingGroundedObjects.Add(collision.gameObject);
 			isGrounded = true;
 		}
@@ -289,7 +292,7 @@ public class Player : MonoBehaviour
 
 	void OnCollisionExit2D(Collision2D collision)
 	{
-		if (collision.gameObject.CompareTag("Ground")) {
+		if (GameManager.IsGround(collision.gameObject)) {
 			touchingGroundedObjects.Remove(collision.gameObject);
 			if (touchingGroundedObjects.Count == 0) {
 				isGrounded = false;
