@@ -12,6 +12,7 @@ https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Camera-fieldOfView
 Art credit:
 Ninja Sprite by pzUH, https://opengameart.org/content/ninja-adventure-free-sprite
 Concrete texture by Calinou, https://opengameart.org/content/seamless-terrain-and-concrete-textures
+Skyline texture by rubycave, https://opengameart.org/content/buildings-construction-set
 
 Inspiration:
 A heavy inspiration for this game was the Mistborn Trilogy by Brandon Sanderson,
