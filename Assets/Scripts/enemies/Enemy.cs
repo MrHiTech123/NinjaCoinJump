@@ -110,7 +110,7 @@ public class Enemy : MonoBehaviour
 	}
 	
 	IEnumerator DestroySelfAfterAnimation() {
-		yield return new WaitForSeconds(1.5f);
+		yield return new WaitForSeconds(1.6666f);
 		Destroy(this.gameObject);
 	}
 	
