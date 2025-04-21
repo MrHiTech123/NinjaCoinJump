@@ -6,12 +6,9 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-	private static Color orange = new Color(255, 128, 0);
-	private static Color lightBlue = new Color(0f, 225f, 255f);
-	
+	[SerializeField] private Sprite glowingSprite;
+	[SerializeField] private Sprite nonGlowingSprite;
 	private Rigidbody2D body;
-	private Vector3 prevPos;
-	private Vector3 prevVel;
     
 	private SpriteRenderer renderer;
 	
@@ -26,26 +23,21 @@ public class Coin : MonoBehaviour
 			}
 			
 			if (glowing) {
-				renderer.color = lightBlue;
+				renderer.sprite = glowingSprite;
 			}
 			else {
-				renderer.color = Color.yellow;
+				renderer.sprite = nonGlowingSprite;
 			}
 		}
 	}
 	
 	public Vector3 movementMissedAmount {get; private set;}
 	
-	void SaveAttributes() {
-		prevPos = body.position;
-		prevVel = body.velocity;
-	}
-	
     void Start()
     {
 		body = GetComponent<Rigidbody2D>();
-		SaveAttributes();
 		renderer = GetComponent<SpriteRenderer>();
+		Glowing = true;
     }
 	
     // Update is called once per frame
