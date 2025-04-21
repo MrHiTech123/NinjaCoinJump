@@ -120,6 +120,7 @@ public class Enemy : MonoBehaviour
 	void Die() {
 		dying = true;
 		body.isKinematic = false;
+		gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
 		StartCoroutine(DestroySelfAfterAnimation());
 	}
 
