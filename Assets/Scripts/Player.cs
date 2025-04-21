@@ -128,6 +128,9 @@ public class Player : MonoBehaviour
 	
 	LinkedListNode<GameObject> ClosestCoinNode() {
 		LinkedListNode<GameObject> closest = thrownCoins.First;
+		if (closest == null) {
+			return null;
+		}
 		float biggestDist = Vector2.Distance(closest.Value.transform.position, transform.position);
 		for (LinkedListNode<GameObject> c = thrownCoins.First; c != null; c = c.Next) {
 			float maybeDist = Vector2.Distance(c.Value.transform.position, transform.position);
@@ -250,7 +253,11 @@ public class Player : MonoBehaviour
 	}
 	
 	void PickUpClosestCoin() {
-		GameObject closestCoin = ClosestCoinNode().Value;
+		LinkedListNode<GameObject> node = ClosestCoinNode();
+		if (node == null) {
+			return;
+		}
+		GameObject closestCoin = node.Value;
 		if (Vector2.Distance(transform.position, closestCoin.transform.position) < pickUpThreshhold) {
 			PickUpCoin(closestCoin);
 		}
