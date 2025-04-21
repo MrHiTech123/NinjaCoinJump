@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 	
 	public static TMP_Text coinText;
 	private static Vector3 spawnPoint;
+	public static bool CheckPointsReached {get; private set;}
 	
 	private const string COLLECTED_COIN_TEXT = "Collected Coins: ";
 	
@@ -21,8 +22,11 @@ public class GameManager : MonoBehaviour
 		UpdateCoinText();
 	}
 
-	public static void SetSpawnPoint(Vector3 pos) {
+	public static void SetSpawnPoint(Vector3 pos, bool checkpoint) {
 		spawnPoint = pos;
+		if (!CheckPointsReached) {
+			CheckPointsReached = checkpoint;
+		}
 	}
 	
 	public static Vector3 GetSpawnPoint() {
@@ -47,9 +51,16 @@ public class GameManager : MonoBehaviour
 		++collectedCoins;
 		UpdateCoinText();
 	}
+	public static void ResetSpawnPoint() {
+		CheckPointsReached = false;
+	}
+	public static void ResetLevel() {
+		ResetCoins();
+		ResetSpawnPoint();
+	}
 	
 	public static void LoadScene(string sceneName) {
-		ResetCoins();
+		ResetLevel();
 		SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
 	}
 	public static bool IsGround(GameObject gameObject) {

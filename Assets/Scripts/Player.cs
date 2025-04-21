@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
 	void Start()
     {
         body = GetComponent<Rigidbody2D>();
-		GameManager.SetSpawnPoint(transform.position);
+		GameManager.SetSpawnPoint(transform.position, false);
     }
 	
 	private float maxSpeed = 15f;
@@ -84,8 +84,15 @@ public class Player : MonoBehaviour
 		horizontalMove = 0;
 	}
 	void Respawn() {
-		transform.position = GameManager.GetSpawnPoint();
-		HaltMovement();
+		Vector3 spawnPoint = GameManager.GetSpawnPoint();
+		if (GameManager.CheckPointsReached) {
+			transform.position = spawnPoint;
+			HaltMovement();
+		}
+		else {
+			ResetScene();
+		}
+		
 	}
 	
 	
@@ -308,7 +315,7 @@ public class Player : MonoBehaviour
 		if (collision.gameObject.CompareTag("Respawn")) {
 			Vector3 spawnPoint = collision.gameObject.transform.position;
 			spawnPoint.z = transform.position.z;
-			GameManager.SetSpawnPoint(spawnPoint);
+			GameManager.SetSpawnPoint(spawnPoint, true);
 			return;
 		}
 	}
