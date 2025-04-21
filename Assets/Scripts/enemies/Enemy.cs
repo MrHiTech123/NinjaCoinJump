@@ -115,7 +115,7 @@ public class Enemy : MonoBehaviour
 	}
 	
 	void HaltVelocity() {
-		body.velocity = new Vector2();
+		body.velocity = new Vector2(0, body.velocity.y);
 	}
 	void Die() {
 		dying = true;
