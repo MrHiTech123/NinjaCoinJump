@@ -323,6 +323,7 @@ public class Player : MonoBehaviour
 			Vector3 spawnPoint = collision.gameObject.transform.position;
 			spawnPoint.z = transform.position.z;
 			GameManager.SetSpawnPoint(spawnPoint, true);
+			collision.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
 			return;
 		}
 	}
