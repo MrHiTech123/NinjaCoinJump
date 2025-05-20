@@ -179,15 +179,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'When you press the space bar, two things happen:
+  m_text: 'This causes two things to happen:
 
 
-    1. You do an ordinary
-    jump (the same as you would by pressing up arrow or W)
+    1. You do an ordinary jump (the
+    same as you would by pressing up arrow or W)
 
-    2. You throw a coin
-    directly beneath you, and continue pushing on it as long as you keep holding
-    space.'
+    2. You throw a coin directly
+    beneath you, and continue pushing on it as long as you keep holding space.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
