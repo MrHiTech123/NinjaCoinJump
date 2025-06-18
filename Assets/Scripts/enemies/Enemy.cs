@@ -121,6 +121,7 @@ public class Enemy : MonoBehaviour
 		dying = true;
 		body.isKinematic = false;
 		gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
+		AudioManager.PlayAudio("enemyDies");
 		StartCoroutine(DestroySelfAfterAnimation());
 	}
 

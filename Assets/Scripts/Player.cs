@@ -94,11 +94,17 @@ public class Player : MonoBehaviour
 		}
 		
 	}
+
+	void Die()
+	{
+		// AudioManager.PlayAudio("playerDies");
+		Respawn();
+	}
 	
 	
-	void MaybeRespawn() {
+	void DieIfYCoordTooLow() {
 		if (transform.position.y < respawnHeight) {
-			Respawn();
+			Die();
 		}
 	}
 	
@@ -239,7 +245,7 @@ public class Player : MonoBehaviour
 		GameManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 	
-	void MaybeResetScene() {
+	void ResetSceneIfPlayerSaidSo() {
 		if (Input.GetKeyDown(KeyCode.R)) {
 			ResetScene();
 		}
@@ -276,8 +282,8 @@ public class Player : MonoBehaviour
         Move();
 		Animate();
 		MaybePickUpClosestCoin();
-		MaybeResetScene();
-		MaybeRespawn();
+		ResetSceneIfPlayerSaidSo();
+		DieIfYCoordTooLow();
 		SetData();
     }
 	
@@ -297,7 +303,7 @@ public class Player : MonoBehaviour
 				return;
 			}
 			if (!enemy.isDying()) {
-				Respawn();
+				Die();
 			}
 		}
 	}

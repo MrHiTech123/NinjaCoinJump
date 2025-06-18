@@ -34,7 +34,7 @@ public class AudioManager : MonoBehaviour
 		if (clip == null) {
 			throw new KeyNotFoundException("Audioclip \"" + audioName + "\" not found in audioClipList");
 		}
-				
+		
 		audioSource.PlayOneShot(clip);
 		
 	}
