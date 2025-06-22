@@ -279,7 +279,7 @@ public class Player : MonoBehaviour
     void Update()
     {
 		GetData();
-        Move();
+		Move();
 		Animate();
 		MaybePickUpClosestCoin();
 		ResetSceneIfPlayerSaidSo();
